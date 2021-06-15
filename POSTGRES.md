@@ -48,14 +48,14 @@ host    all             all             127.0.0.1/32            password
 # IPv6 local connections:
 host    all             all             ::1/128                 password
 ```
-Resart postgres and check kamailio access to DB
+Restart postgres and check kamailio access to DB
 ```
 systemctl restart postgresql-12
 psql -U kamailio -d postgres://kamailio:kamailio@127.0.0.1/kamailio
 ```
 Get the postgres kamailio configs:
 ```
-git clone https://github.com/kageds/kazoo-configs-kamailio /etc/kazoo/kamailio
+git clone https://github.com/kageds/kazoo-configs-kamailio /etc/kazoo
 cd /etc/kazoo/kamailio
 git checkout 4.3-postgres
 ```
@@ -68,6 +68,31 @@ Notice that the backend DB in local.cfg is now postgres
 #!trydef KZ_DB_MODULE postgres
 #!substdef "!KAMAILIO_DBMS!postgres!g"
 #!substdef "!KAZOO_DB_URL!postgres://kamailio:kamailio@127.0.0.1/kamailio!g"
+```
+Tell kamailio where the configuration files are
+```
+vi /etc/sysconfig/kamailio
+
+#
+# Kamailio startup options
+#
+
+# Amount of shared memory to allocate for the running Kamailio server (in Mb)
+#SHM_MEMORY=64
+
+# Amount of per-process (package) memory to allocate for Kamailio (in Mb)
+#PKG_MEMORY=4
+
+# Enable the server to leave a core file when it crashes.
+# Set this to 'yes' to enable kamailio to leave a core file when it crashes
+# or 'no' to disable this feature. This option is case sensitive and only
+# accepts 'yes' and 'no' and only in lowercase letters.
+# On some systems (e.g. Ubuntu 6.10, Debian 4.0) it is necessary to specify
+# a directory for the core files to get a dump. Look into the kamailio
+# init file for an example configuration.
+DUMP_CORE=no
+
+CFGFILE=/etc/kazoo/kamailio/kamailio.cfg
 ```
 Start kamailio (NOT kazoo-kamailio)
 ```
