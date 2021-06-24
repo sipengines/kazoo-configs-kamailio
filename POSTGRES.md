@@ -101,6 +101,11 @@ DUMP_CORE=no
 
 CFGFILE=/etc/kazoo/kamailio/kamailio.cfg
 ```
+TEMP: Patch the kazoo module
+[https://github.com/kamailio/kamailio/pull/2786]
+```
+cp kazoo_module/kazoo.so /usr/lib64/kamailio/modules/kazoo.so
+```
 Start kamailio (NOT kazoo-kamailio)
 ```
 systemctl enable kamailio
