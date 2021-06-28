@@ -10,12 +10,13 @@ Removing existing kazoo-kamailo:
   yum remove kazoo-kamailio
   yum remove kamailio
   yum remove kazoo-configs-kamailio
+  rm -rf /etc/kazoo
 ```
 Next install the lastest Kamailio (currently 5.5.0)
 ```
 yum -y install yum-utils
 yum-config-manager --add-repo https://rpm.kamailio.org/centos/kamailio.repo
-yum install kamailio kamailio-kazoo kamailio-outbound kamailio-presence kamailio-tls   kamailio-utils kamailio-uuid    kamailio-websocket kamailio-xmpp kamailio-postgresql
+yum install git kamailio kamailio-kazoo kamailio-outbound kamailio-presence kamailio-tls   kamailio-utils kamailio-uuid    kamailio-websocket kamailio-xmpp kamailio-postgresql
 ```
 Now install latest postgres (currently 12.7)
 ```
@@ -104,7 +105,7 @@ CFGFILE=/etc/kazoo/kamailio/kamailio.cfg
 TEMP: Patch the kazoo module
 [https://github.com/kamailio/kamailio/pull/2786]
 ```
-cp kazoo_module/kazoo.so /usr/lib64/kamailio/modules/kazoo.so
+cp /etc/kazoo/kazoo_module/kazoo.so /usr/lib64/kamailio/modules/kazoo.so
 ```
 Start kamailio (NOT kazoo-kamailio)
 ```
