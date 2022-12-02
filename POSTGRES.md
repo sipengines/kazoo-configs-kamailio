@@ -56,8 +56,9 @@ psql -U kamailio -d postgres://kamailio:kamailio@127.0.0.1/kamailio
 Get the postgres kamailio configs:
 ```
 git clone https://github.com/kageds/kazoo-configs-kamailio /etc/kazoo
-cd /etc/kazoo/kamailio
-git checkout 4.3-postgres
+cd /etc/kazoo/
+git checkout itlevel3-4.3
+ln -s kamailio-proxy-proxy|call|reg|blf kamailio
 ```
 Initialize the kamailio database with all the required tables:
 ```
