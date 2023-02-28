@@ -48,6 +48,13 @@ host    all             all             127.0.0.1/32            password
 # IPv6 local connections:
 host    all             all             ::1/128                 password
 ```
+Increase the max number of connections and shared memory
+```
+vi /var/lib/pgsql/12/data/postgresql.conf
+
+shared_buffers = 256MB
+max_connections = 500 
+```
 Restart postgres and check kamailio access to DB
 ```
 systemctl restart postgresql-12
